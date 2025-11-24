@@ -33,22 +33,22 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
       - name: Build and Push API Gateway
+        working-directory: ds-api-gateway
         run: |
-          cd api-gateway
           mvn clean package -DskipTests
           docker build -t ${{ env.DOCKERHUB_USERNAME }}/${{ env.REPO_API }}:latest .
           docker push ${{ env.DOCKERHUB_USERNAME }}/${{ env.REPO_API }}:latest
       
       - name: Build and Push Client Service
+        working-directory: ds-client-service
         run: |
-          cd client-service
           mvn clean package -DskipTests
           docker build -t ${{ env.DOCKERHUB_USERNAME }}/${{ env.REPO_CLIENT }}:latest .
           docker push ${{ env.DOCKERHUB_USERNAME }}/${{ env.REPO_CLIENT }}:latest
       
       - name: Build and Push Account Service
+        working-directory: ds-account-service
         run: |
-          cd account-service
           mvn clean package -DskipTests
           docker build -t ${{ env.DOCKERHUB_USERNAME }}/${{ env.REPO_ACCOUNT }}:latest .
           docker push ${{ env.DOCKERHUB_USERNAME }}/${{ env.REPO_ACCOUNT }}:latest
